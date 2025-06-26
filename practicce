@@ -1,0 +1,85 @@
+class Employee:
+    def __init__(self, emp_id, name, department):
+        self._emp_id = emp_id
+        self._name = name
+        self._department = department
+        self._attendance = []
+
+    # Getter methods
+    def get_emp_id(self):
+        return self._emp_id
+
+    def get_name(self):
+        return self._name
+
+    def get_department(self):
+        return self._department
+
+    def get_attendance(self):
+        return self._attendance
+
+    # Setter methods
+    def set_name(self, name):
+        self._name = name
+
+    def set_department(self, department):
+        self._department = department
+
+    # Function to mark attendance
+    def mark_attendance(self, date, status):
+        self._attendance.append({"date": date, "status": status})
+
+    # Function to show employee details
+    def display_info(self):
+        print("-----------")
+        print(f"ID: {self._emp_id}")
+        print(f"Name: {self._name}")
+        print(f"Department: {self._department}")
+        print("Attendance:")
+        for record in self._attendance:
+            print(f"  {record['date']}: {record['status']}")
+        print("-----------")
+
+
+class EmployeeManager:
+    def __init__(self):
+        self.employee_list = {}
+
+    # Add new employee
+    def add_employee(self, emp_id, name, department):
+        if emp_id not in self.employee_list:
+            self.employee_list[emp_id] = Employee(emp_id, name, department)
+            print(f"Employee '{name}' added successfully.")
+        else:
+            print("Employee ID already exists!")
+
+    # Mark attendance for an employee
+    def take_attendance(self, emp_id, date, status):
+        if emp_id in self.employee_list:
+            self.employee_list[emp_id].mark_attendance(date, status)
+            print(f"Attendance marked for {self.employee_list[emp_id].get_name()}.")
+        else:
+            print("Employee not found!")
+
+    # Show details of an employee
+    def show_employee(self, emp_id):
+        if emp_id in self.employee_list:
+            self.employee_list[emp_id].display_info()
+        else:
+            print("Employee not found!")
+
+
+# -------- Main Program ---------
+manager = EmployeeManager()
+
+# Adding employees
+manager.add_employee(1, "Aviraj Chetry", "IT")
+manager.add_employee(2, "Sneha Das", "HR")
+
+# Marking attendance
+manager.take_attendance(1, "2025-06-26", "Present")
+manager.take_attendance(2, "2025-06-26", "Absent")
+
+# Displaying employee info
+manager.show_employee(1)
+manager.show_employee(2)
