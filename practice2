@@ -1,0 +1,64 @@
+class Employee:
+    def __init__(self, emp_id, name, position):
+        self._emp_id = emp_id
+        self._name = name
+        self._position = position
+        self._attendance = []
+
+    # Get methods
+    def get_emp_id(self):
+        return self._emp_id
+
+    def get_name(self):
+        return self._name
+
+    def get_position(self):
+        return self._position
+
+    def get_attendance(self):
+        return self._attendance
+
+    # Set methods
+    def set_name(self, name):
+        self._name = name
+
+    def set_position(self, position):
+        self._position = position
+
+    # Function to mark attendance
+    def mark_attendance(self, date, status):
+        self._attendance.append({"date": date, "status": status})
+
+    # Function to display employee info
+    def display_info(self):
+        print(f"ID: {self._emp_id}")
+        print(f"Name: {self._name}")
+        print(f"Position: {self._position}")
+        print("Attendance Record:")
+        for record in self._attendance:
+            print(f" - {record['date']}: {record['status']}")
+
+class EmployeeManagementSystem:
+    def __init__(self):
+        self.employees = {}
+
+    def add_employee(self, emp_id, name, position):
+        if emp_id not in self.employees:
+            self.employees[emp_id] = Employee(emp_id, name, position)
+            print(f"Employee {name} added successfully.")
+        else:
+            print("Employee ID already exists.")
+
+    def mark_attendance(self, emp_id, date, status):
+        if emp_id in self.employees:
+            self.employees[emp_id].mark_attendance(date, status)
+            print(f"Attendance marked for {self.employees[emp_id].get_name()}.")
+        else:
+            print("Employee not found.")
+
+    def show_employee_details(self, emp_id):
+        if emp_id in self.employees:
+            self.employees[emp_id].display_info()
+        else:
+            print("Employee not found.")
+
